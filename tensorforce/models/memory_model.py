@@ -422,6 +422,31 @@ class MemoryModel(Model):
             # Total loss summary.
             if 'losses' in self.summary_labels or 'total-loss' in self.summary_labels:
                 tf.contrib.summary.scalar(name='total-loss', tensor=loss)
+                
+            # YOU CAN ADD MORE THINGS TO LOG HERE
+            
+            # Reward summary
+            if 'reward' in self.summary_labels or 'rewards' in self.summary_labels:
+                tf.contrib.summary.scalar(name='reward', tensor=reward)
+                
+            # action(s) summary
+            if 'action' in self.summary_labels or 'actions' in self.summary_labels:
+                for index, action in enumerate(actions):
+                    tf.contrib.summary.histogram(name='action'+str(index), tensor=actions.get(action))
+
+
+            # states summary
+            if 'states' in self.summary_labels:
+                state_tensor=states.get("state")
+                tf.contrib.summary.histogram(name='states',tensor=state_tensor)
+				# try to extract single states
+				#sliced_tensor = tf.slice(state_tensor, [0, 1], [-1,1])
+				#tf.summary.histogram('state0',sliced_tensor)
+				#for j in range(state_tensor.get_shape()[1]):
+				#    tf.summary.histogram('state'+str(j), tensor=state_tensor[1][j])
+
+
+				#END ADDING LOGS
 
             return loss
 
