@@ -318,7 +318,7 @@ class MemoryModel(Model):
 
     def tf_reference(self, states, internals, actions, terminal, reward, next_states, next_internals, update):
         """
-        Creates the TensorFlow operations for obtaining the reference tensor(s), in case of a
+        Creates the TensorFlow operations for obtaining the reference tensor(s), in case of a  
         comparative loss.
 
         Args:
@@ -610,7 +610,7 @@ class MemoryModel(Model):
             reward=reward
         )
 
-    def create_operations(self, states, internals, actions, terminal, reward, deterministic, independent, index):
+    def create_operations(self, states, internals, actions, terminal, reward, deterministic, independent):
         # Import experience operation.
         self.import_experience_output = self.fn_import_experience(
             states=states,
@@ -627,8 +627,7 @@ class MemoryModel(Model):
             terminal=terminal,
             reward=reward,
             deterministic=deterministic,
-            independent=independent,
-            index=index
+            independent=independent
         )
 
     def get_variables(self, include_submodules=False, include_nontrainable=False):

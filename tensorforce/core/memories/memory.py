@@ -61,12 +61,9 @@ class Memory(object):
         if custom_getter is None:
             def custom_getter(getter, name, registered=False, **kwargs):
                 variable = getter(name=name, registered=True, **kwargs)
-                if registered:
-                    pass
-                elif name in self.variables:
-                    assert variable is self.variables[name]
-                else:
-                    assert not kwargs['trainable']
+
+                if not registered:
+                    assert not kwargs.get('trainable', False)
                     self.variables[name] = variable
                 return variable
 

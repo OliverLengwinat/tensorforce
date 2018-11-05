@@ -16,6 +16,5 @@
 from tensorforce.execution.base_runner import BaseRunner
 from tensorforce.execution.runner import Runner, SingleRunner, DistributedTFRunner
 from tensorforce.execution.threaded_runner import ThreadedRunner, WorkerAgentGenerator
-from tensorforce.execution.parallel_runner import ParallelRunner
 
-__all__ = ['BaseRunner', 'SingleRunner', 'DistributedTFRunner', 'Runner', 'ThreadedRunner', 'WorkerAgentGenerator', 'ParallelRunner']
+__all__ = ['BaseRunner', 'SingleRunner', 'DistributedTFRunner', 'Runner', 'ThreadedRunner', 'WorkerAgentGenerator']

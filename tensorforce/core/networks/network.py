@@ -18,10 +18,12 @@ from __future__ import division
 from __future__ import print_function
 
 from collections import Counter
+import json
+import os
 
 import tensorflow as tf
 
-from tensorforce import util
+from tensorforce import util, TensorForceError
 from tensorforce.core.networks import Layer
 
 
@@ -42,15 +44,7 @@ class Network(object):
 
         def custom_getter(getter, name, registered=False, **kwargs):
             variable = getter(name=name, registered=True, **kwargs)
-            if registered:
-                pass
-            elif name in self.all_variables:
-                assert variable is self.all_variables[name]
-                if kwargs.get('trainable', True):
-                    assert variable is self.variables[name]
-                    if 'variables' in self.summary_labels:
-                        tf.contrib.summary.histogram(name=name, tensor=variable)
-            else:
+            if not registered:
                 self.all_variables[name] = variable
                 if kwargs.get('trainable', True):
                     self.variables[name] = variable

@@ -41,12 +41,7 @@ class Preprocessor(object):
 
         def custom_getter(getter, name, registered=False, **kwargs):
             variable = getter(name=name, registered=True, **kwargs)
-            if registered:
-                pass
-            elif name in self.variables:
-                assert variable is self.variables[name]
-            else:
-                assert not kwargs['trainable']
+            if not registered:
                 self.variables[name] = variable
             return variable
 

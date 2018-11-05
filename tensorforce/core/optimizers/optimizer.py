@@ -40,12 +40,8 @@ class Optimizer(object):
 
         def custom_getter(getter, name, registered=False, **kwargs):
             variable = getter(name=name, registered=True, **kwargs)
-            if registered:
-                pass
-            elif name in self.variables:
-                assert variable is self.variables[name]
-            else:
-                assert not kwargs['trainable']
+            if not registered:
+                assert kwargs.get('trainable', False)
                 self.variables[name] = variable
             return variable
 
@@ -104,7 +100,6 @@ class Optimizer(object):
                 loss.
             - fn_kl_divergence: A callable returning the KL-divergence relative to the
                 current model.
-            - sampled_loss: A sampled loss (integer).
             - return_estimated_improvement: Returns the estimated improvement resulting from
                 the natural gradient calculation if true.
             - source_variables: List of source variables to synchronize with.

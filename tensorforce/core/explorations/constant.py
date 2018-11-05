@@ -13,9 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 
-import tensorflow as tf
-
-from tensorforce import util
 from tensorforce.core.explorations import Exploration
 
 
@@ -28,5 +25,5 @@ class Constant(Exploration):
         self.constant = constant
         super(Constant, self).__init__(scope=scope, summary_labels=summary_labels)
 
-    def tf_explore(self, episode, timestep, shape):
-        return tf.constant(value=self.constant, dtype=util.tf_dtype('float'), shape=shape)
+    def tf_explore(self, episode, timestep, action_spec=None):
+        return self.constant
